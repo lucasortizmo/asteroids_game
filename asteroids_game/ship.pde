@@ -1,8 +1,9 @@
 class Ship extends GameObject {
+
   // instance variables
   PVector direction;
   int shotTimer, threshold;
-  int t;
+  int t; // immunity timer
 
   // constructor
   Ship() {
@@ -17,30 +18,33 @@ class Ship extends GameObject {
 
   // Behaviour Functions
   void show () {
+
+    // ship visual
     pushMatrix();
     translate(location.x, location.y);
     rotate(direction.heading());
     if (immune == false) {
-    fill(255);
-    stroke(255);
-    ellipse(0, 0, 50, 18);
-    fill(0);
-    triangle(-25, -12.5, -25, 12.5, 25, 0);
+      fill(255);
+      stroke(255);
+      ellipse(0, 0, 50, 18);
+      fill(0);
+      triangle(-25, -12.5, -25, 12.5, 25, 0);
     } else if (immune == true) {
-    fill(255);
-    stroke(255);
-    ellipse(0, 0, 50, 18);
-    fill(27, 247, 12);
-    triangle(-25, -12.5, -25, 12.5, 25, 0);
-    t++;
+      fill(255);
+      stroke(255);
+      ellipse(0, 0, 50, 18);
+      fill(27, 247, 12);
+      triangle(-25, -12.5, -25, 12.5, 25, 0);
+      t++;
     }
     popMatrix();
   }
 
   void act () {
-      super.act();
+    super.act();
     shotTimer++;
 
+    // keyboard controls
     if (upkey) {
       velocity.add(direction);
       myObjects.add(new Fire());
@@ -52,11 +56,14 @@ class Ship extends GameObject {
       myObjects.add(new Bullet());
       shotTimer = 0;
     }
-    
+
+    // immunity reset and timer
     if (t > 400) {
-    t = 0;
-    immune = false;
+      t = 0;
+      immune = false;
     }
+
+    // location and velocity reset once destroyed
     if (lives == 0) {
       gameOver = false;
       lives = 3;
@@ -67,6 +74,5 @@ class Ship extends GameObject {
       myShip.location.y = height/2;
       myShip.direction.x = 0;
     }
-println(lives, Alives);  
-}
+  }
 }

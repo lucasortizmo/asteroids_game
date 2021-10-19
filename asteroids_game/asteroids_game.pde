@@ -1,3 +1,8 @@
+// Lucas Ortiz Molina
+// 1 - 4
+// Sunday October 17th 
+
+
 // color palette
 color bloodred = #FF0705;
 color greenbanana = #C6ED79;
@@ -10,10 +15,15 @@ PImage[] gif;
 int numberOfFrames;
 int frame;
 
+// keyboard controls
 boolean upkey, downkey, leftkey, rightkey, spacekey;
+
+// calling classes
 Ship myShip;
 UFO myUFO;
 Asteroid myAsteroid;
+
+// game engine array list
 ArrayList<GameObject> myObjects;
 
 // immunity detection
@@ -22,9 +32,11 @@ boolean immune;
 // Win/Lose
 boolean gameOver;
 
+// asteroid life counter
 int Alives;
-int mode;
 
+// mode framework
+int mode;
 final int INTRO = 1;
 final int GAME = 2;
 final int GAMEOVER = 3;
@@ -36,26 +48,26 @@ PFont game;
 PFont DemiBold;
 
 void setup () {
+
+  // visuals initialization
   size(800, 600, FX2D);
   imageMode(CENTER);
   rectMode(CENTER);
+
+  // class construction
   myShip = new Ship();
   myUFO = new UFO();
   myAsteroid = new Asteroid();
   myObjects = new ArrayList<GameObject>();
-  //myObjects.add(myShip);
-  //myObjects.add(new Asteroid());
-  //myObjects.add(new Asteroid());
-  //myObjects.add(new Asteroid());
-  //myObjects.add(new UFO());
-  
+
+
   // mode initialization
   mode = INTRO;
   Alives = 9;
-  
+
   // immunity detection
   immune = false;
-  
+
   // gif array INTRO
   numberOfFrames = 30;
   gif = new PImage [numberOfFrames];
@@ -63,22 +75,22 @@ void setup () {
   while (i < numberOfFrames) {
     gif[i] = loadImage("intro_gif/frame_"+i+"_delay-0.04s.gif");
     i++;
-      }
-  
+  }
+
   // intitialize win/lose 
   gameOver = false;
-  
+
   // fonts
   asteroids = loadFont("CopperplateGothic-Bold-48.vlw");
   game = loadFont("BookmanOldStyle-BoldItalic-48.vlw");
-  
+
   // pause screen
   space = loadImage("space.jpg");
 }
 
 void draw () {
   game();
-  
+
   // mode framework
   if (mode == INTRO) {
     intro();
@@ -89,9 +101,9 @@ void draw () {
   } else if (mode == PAUSE) {
     pause();
   }
-  
 }
 
+// keyboard game functions
 void keyPressed () {
   if (key == 'w') upkey = true;
   if (key == 's') downkey = true;

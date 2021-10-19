@@ -3,6 +3,7 @@ class Fire extends GameObject {
   int t; // transparency
   PVector nudge;
 
+  // constructor
   Fire() {
     lives = 1;
     size = int(random(5, 12));
@@ -17,6 +18,7 @@ class Fire extends GameObject {
     velocity.setMag(2);
   }
 
+  // behaviour functions
   void show () {
     noStroke();
     fill(255, 0, 0, t);
@@ -25,6 +27,8 @@ class Fire extends GameObject {
 
   void act () {
     super.act();
+    
+    // transparency timer
     t = t - 10;
     if (t <= 0) lives = 0;
   }
